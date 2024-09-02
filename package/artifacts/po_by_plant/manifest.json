@@ -1,0 +1,13 @@
+{
+	"_version": "1.27.0",
+	"_generator": "cpkg-project-template",
+	"sap.artifact": {
+		"id": "ns.po_by_plant",
+		"type": "card",
+		"title": "PO By Plant Card",
+		"subTitle": "UI5 Integration Card",
+		"artifactVersion": {
+			"version": "1.0.0"
+		}
+	}
+}

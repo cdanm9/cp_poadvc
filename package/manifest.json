@@ -1,0 +1,224 @@
+{
+	"sap.package": {
+		"id": "ns.cp_poadvc",
+		"packageVersion": {
+			"version": "1.0.0",
+			"upgradeNotification": "all"
+		},
+		"i18n": "i18n/i18n.properties",
+		"icon": "sap-icon://accept",
+		"title": "CPwithUICard",
+		"subTitle": "cp",
+		"shortTitle": "",
+		"info": "",
+		"description": "",
+		"tags": {
+			"keywords": []
+		},
+		"vendor": {
+			"id": "",
+			"name": "",
+			"url": ""
+		},
+		"products": "",
+		"categories": "",
+		"scope": "external",
+		"license": {
+			"text": "",
+			"url": ""
+		},
+		"homepage": {
+			"text": "",
+			"url": ""
+		},
+		"support": {
+			"url": ""
+		},
+		"contents": [
+			{
+				"manifest": {
+					"_version": "1.27.0",
+					"_generator": "cpkg-project-template",
+					"sap.artifact": {
+						"id": "ns.po_by_plant",
+						"type": "card",
+						"title": "PO By Plant Card",
+						"subTitle": "UI5 Integration Card",
+						"artifactVersion": {
+							"version": "1.0.0"
+						}
+					}
+				},
+				"baseURL": "artifacts/po_by_plant"
+			}
+		],
+		"documentation": {
+			"url": ""
+		},
+		"consumption": [],
+		"dependencies": {
+			"products": [],
+			"services": []
+		},
+		"destinations": [],
+		"cdmEntities": [
+			{
+				"_version": "3.2.0",
+				"identification": {
+					"id": "ns.cp_poadvc_ns.mycontentpackage.sm",
+					"title": "ContentPackageRole",
+					"entityType": "role"
+				},
+				"payload": {
+					"apps": [
+						{
+							"id": "ns.po_by_plant.app"
+						}
+					]
+				},
+				"texts": [
+					{
+						"locale": "",
+						"textDictionary": {
+							"description": "Business App Description"
+						}
+					}
+				]
+			},
+			{
+				"_version": "3.2.0",
+				"identification": {
+					"id": "ns.po_by_plant.app",
+					"title": "PO By Plant Card",
+					"entityType": "businessapp",
+					"description": "{{description}}"
+				},
+				"payload": {
+					"visualizations": {
+						"ns.po_by_plant.viz": {
+							"vizType": "sap.card",
+							"vizConfig": {
+								"_version": "1.14.0",
+								"sap.app": {
+									"id": "ns.po_by_plant",
+									"type": "card",
+									"title": "PO By Plant Card",
+									"subTitle": "UI5 Integration Card",
+									"applicationVersion": {
+										"version": "1.0.0"
+									}
+								},
+								"sap.ui": {
+									"technology": "UI5",
+									"deviceTypes": {
+										"desktop": true,
+										"phone": true,
+										"tablet": true
+									},
+									"icons": {
+										"icon": "sap-icon://list"
+									}
+								},
+								"sap.card": {
+									"type": "List",
+									"configuration": {
+										"destinations": {
+											"PurchaseOrderAdvanced": {
+												"name": "PurchaseOrderAdvanced",
+												"defaultUrl": "/odata/v4/pocreation/"
+											}
+										},
+										"parameters": {
+											"title": {
+												"value": "Total {{parameters.maxItems}} Orders"
+											},
+											"subTitle": {
+												"value": "Top Orders"
+											},
+											"maxItems": {
+												"value": 5
+											},
+											"selectedCategoryName": {
+												"value": "Purchase Order Company"
+											}
+										},
+										"filters": {
+											"mainCategory": {
+												"value": "{{parameters.selectedCategoryName}}",
+												"type": "string",
+												"label": "Filter Company",
+												"description": "Filter Orders by Company.",
+												"item": {
+													"path": "/value",
+													"template": {
+														"key": "{CODE}",
+														"title": "{NAME}"
+													}
+												},
+												"data": {
+													"request": {
+														"url": "{{destinations.PurchaseOrderAdvanced}}/odata/v4/pocreation/CompanyMaster",
+														"withCredentials": true
+													}
+												}
+											}
+										}
+									},
+									"data": {
+										"request": {
+											"url": "{{destinations.PurchaseOrderAdvanced}}/odata/v4/pocreation/POHeader",
+											"withCredentials": true,
+											"parameters": {
+												"$filter": "CompanyCode eq '{filters>/mainCategory/value}'"
+											}
+										},
+										"path": "/value"
+									},
+									"designtime": "dt/configuration",
+									"header": {
+										"title": "Purchase Order {filters>/mainCategory/selectedItem/title} Company",
+										"subTitle": "Purchase Order Request",
+										"icon": {
+											"src": "sap-icon://customer"
+										},
+										"status": {
+											"text": "Purchase Orders"
+										}
+									},
+									"content": {
+										"item": {
+											"title": "{PCode}",
+											"description": "{CompanyCode}",
+											"icon": {
+												"src": "sap-icon://information"
+											},
+											"info": {
+												"value": "{Total_Amount}",
+												"state": "Information"
+											}
+										},
+										"maxItems": 5
+									}
+								},
+								"sap.platform.mobilecards": {
+									"compatible": false
+								}
+							},
+							"vizResources": {
+								"artifactId": "ns.po_by_plant"
+							}
+						}
+					}
+				},
+				"texts": [
+					{
+						"locale": "",
+						"textDictionary": {
+							"description": "Business App Description"
+						}
+					}
+				]
+			}
+		]
+	}
+}
